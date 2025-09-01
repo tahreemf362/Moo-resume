@@ -599,13 +599,13 @@ body.dark {
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="close-btn"><i class="fas fa-times"></i></div>
-    <a href="#">HOME</a>
-    <a href="#">ABOUT</a>
-    <a href="#">SKILLS</a>
-    <a href="#">EDUCATION</a>
-    <a href="#">WORK</a>
-    <a href="#">EXPERIENCE</a>
-    <a href="#">CONTACT</a>
+    <a href="#intro">HOME</a>
+    
+    <a href="#skills">SKILLS</a>
+    <a href="#education">EDUCATION</a>
+    <a href="#experience">WORK</a>
+    <a href="#experience">EXPERIENCE</a>
+    <a href="#contact">CONTACT</a>
   </div>
 
   <!-- Background Video -->
@@ -770,10 +770,17 @@ body.dark {
   color: #fff;
   font-size: 1.5rem;
   transition: color 0.3s, transform 0.3s;
+  touch-action: manipulation;
 }
-.footer-socials a:hover {
+.footer-socials a:active, .footer-socials a:focus {
   color: #8a3ffc;
   transform: scale(1.2) rotate(-8deg);
+}
+@media (hover: none) and (pointer: coarse) {
+  .footer-socials a:hover {
+    color: #8a3ffc;
+    transform: scale(1.2) rotate(-8deg);
+  }
 }
 .footer-links {
   font-size: 1.05rem;
@@ -845,16 +852,31 @@ body.dark {
     canvas.width = w; canvas.height = h;
   });
 
-  document.addEventListener("mousemove", e => {
+  function triggerBubbles(x, y) {
     for (let i=0; i<5; i++) {
       particles.push({
-        x: e.clientX,
-        y: e.clientY,
+        x: x,
+        y: y,
         size: Math.random()*4+2,
         alpha: 1,
         angle: Math.random()*2*Math.PI,
         speed: Math.random()*2+1
       });
+    }
+  }
+
+  document.addEventListener("mousemove", e => {
+    triggerBubbles(e.clientX, e.clientY);
+  });
+
+  document.addEventListener("touchstart", e => {
+    if (e.touches && e.touches.length > 0) {
+      triggerBubbles(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  });
+  document.addEventListener("touchmove", e => {
+    if (e.touches && e.touches.length > 0) {
+      triggerBubbles(e.touches[0].clientX, e.touches[0].clientY);
     }
   });
 
@@ -897,10 +919,6 @@ function animateEduCards() {
 
 window.addEventListener('DOMContentLoaded', animateEduCards);
 </script>
-
-
-
-
 
 </body>
 </html>
