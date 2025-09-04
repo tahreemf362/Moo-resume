@@ -959,10 +959,6 @@ body.dark {
     }
   }
 
-  document.addEventListener("mousemove", e => {
-    triggerBubbles(e.clientX, e.clientY);
-  });
-
   document.addEventListener("touchstart", e => {
     if (e.touches && e.touches.length > 0) {
       triggerBubbles(e.touches[0].clientX, e.touches[0].clientY);
